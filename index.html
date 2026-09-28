@@ -149,6 +149,27 @@
         body {
             animation: crt-flicker 0.15s infinite;
         }
+			
+			
+			@keyframes driftAnimation {
+    0% { transform: translateX(-100px) rotate(0deg); opacity: 0; }
+    20% { opacity: 1; }
+    60% { transform: translateX(60vw) rotate(-15deg); }
+    80% { transform: translateX(80vw) rotate(5deg); }
+    100% { transform: translateX(110vw) rotate(0deg); opacity: 0; }
+}
+
+.drifting-car {
+    position: fixed;
+    bottom: 30px;
+    left: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 1.2rem;
+    color: #ffb000;
+    z-index: 20000;
+    pointer-events: none;
+    animation: driftAnimation 4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+}
 
 
 
@@ -343,7 +364,7 @@
             document.getElementById('sudo-modal').style.display = 'none';
         }
 
-        function handleSudoCommand(event) {
+                function handleSudoCommand(event) {
             if (event.key === 'Enter') {
                 const input = document.getElementById('sudo-input');
                 const log = document.getElementById('sudo-log');
@@ -362,11 +383,14 @@
                 } else if (lowerCmd === 'whoami') {
                     response = "root (Master of the Terminal & System Architect)";
                 } else if (lowerCmd === 'help') {
-                    response = "Available commands: sudo rm -rf /, whoami, reboot, cat coffee.log";
+                    response = "Available commands: sudo rm -rf /, whoami, reboot, cat coffee.log, drift";
                 } else if (lowerCmd === 'reboot') {
                     response = "Rebooting neural link... Just kidding, we love this uptime.";
                 } else if (lowerCmd.includes('cat coffee.log')) {
                     response = "Error 418: Coffee cup is empty. Please refill manually.";
+                } else if (lowerCmd === 'drift') {
+                    response = "Initiating rally mode... Watch out for the apex!";
+                    triggerDriftCar(); 
                 } else {
                     response = `command not found: ${escapeHtml(cmd)}. Type 'help' for options.`;
                 }
@@ -377,9 +401,41 @@
             }
         }
 
+        function triggerDriftCar() {
+            const car = document.createElement('div');
+            car.className = 'drifting-car';
+            car.innerHTML = `
+                <svg width="70" height="28" viewBox="0 0 35 14" xmlns="http://www.w3.org/2000/svg" style="image-rendering: pixelated;">
+                    <!-- Smoke pixels -->
+                    <rect x="0" y="10" width="3" height="2" fill="#ffb000" opacity="0.6"/>
+                    <rect x="4" y="11" width="2" height="1" fill="#ffb000" opacity="0.3"/>
+                    <!-- Car chassis -->
+                    <rect x="6" y="4" width="23" height="5" fill="#ffb000"/>
+                    <rect x="10" y="1" width="14" height="4" fill="#ffb000"/>
+                    <!-- Windows -->
+                    <rect x="12" y="2" width="5" height="2" fill="#121212"/>
+                    <rect x="18" y="2" width="5" height="2" fill="#121212"/>
+                    <!-- Wheels -->
+                    <rect x="9" y="9" width="5" height="4" fill="#ffb000"/>
+                    <rect x="9" y="10" width="3" height="2" fill="#121212"/>
+                    <rect x="21" y="9" width="5" height="4" fill="#ffb000"/>
+                    <rect x="21" y="10" width="3" height="2" fill="#121212"/>
+                    <!-- Headlight / Taillight -->
+                    <rect x="28" y="5" width="1" height="2" fill="#ffffff"/>
+                    <rect x="6" y="5" width="1" height="2" fill="#ff5555"/>
+                </svg>
+            `;
+            document.body.appendChild(car);
+            setTimeout(() => car.remove(), 4000);
+        }
+
         function escapeHtml(text) {
             return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         }
+    </script>
+</html>
+
+        
 
 
     </script>
