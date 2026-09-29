@@ -1,1 +1,1 @@
-This is a website created for the webnova contest helb by IEEE@MBITS
+This is a website created for the webnova contest held by IEEE@MBITS
