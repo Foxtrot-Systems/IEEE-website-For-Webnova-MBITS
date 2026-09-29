@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>IEEE_MBITS_OS</title>
 	<!--Jetsans link from google-->
 	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -170,6 +171,20 @@
     pointer-events: none;
     animation: driftAnimation 4s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
 }
+						
+						
+						@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr !important; /* Stacks windows vertically on phones */
+    }
+    
+    /* Optional: adjustments for smaller modals */
+    #info-modal > div, #sudo-modal > div {
+        width: 95% !important;
+        padding: 15px !important;
+    }
+}
+
 
 
 
